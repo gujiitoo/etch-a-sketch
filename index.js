@@ -5,6 +5,11 @@ const rgbBtn = document.querySelector('.rgb')
 const eraserBtn = document.querySelector('.eraser')
 const clearBtn = document.querySelector('.clear')
 
+//set default grid 16x16
+let boxNumber = 256;
+let boxWidth = 43.75;
+setGrid(boxNumber, boxWidth)
+
 dimensionBtn.addEventListener('click', getDimensions)
 
 let penOption = 'black'
@@ -12,7 +17,6 @@ let penOption = 'black'
 blackBtn.addEventListener('click', () => penOption = 'black')
 eraserBtn.addEventListener('click', () => penOption = 'white')
 rgbBtn.addEventListener('click', () => penOption = 'rgb')
-
 
 function getRandomNumber() {
     return Math.floor(Math.random() * 256)
@@ -31,11 +35,16 @@ function getDimensions() {
     else{
         clearContainer()
         let dimensions = dimension;
-        let boxNumber = dimensions**2
-        let boxWidth= 700 / dimensions;  
+        boxNumber = dimensions**2
+        boxWidth= 700 / dimensions;  
         setGrid(boxNumber, boxWidth)
     }
 }
+
+clearBtn.addEventListener('click', () => {
+    clearContainer()
+    setGrid(boxNumber, boxWidth)
+})
 
 function setGrid(boxNumber, boxWidth) {
     for (let i = 0; i < boxNumber; i++) {
@@ -50,7 +59,6 @@ function setGrid(boxNumber, boxWidth) {
         container.appendChild(element)
     }
 }
-
 
 function clearContainer() {
     container.innerHTML = ''
