@@ -14,9 +14,24 @@ dimensionBtn.addEventListener('click', getDimensions)
 
 let penOption = 'black'
 
-blackBtn.addEventListener('click', () => penOption = 'black')
-eraserBtn.addEventListener('click', () => penOption = 'white')
-rgbBtn.addEventListener('click', () => penOption = 'rgb')
+blackBtn.addEventListener('click', () => {
+    penOption = 'black'
+    blackBtn.classList.add('buttonClicked')
+    eraserBtn.classList.remove('buttonClicked')
+    rgbBtn.classList.remove('buttonClicked')
+})
+eraserBtn.addEventListener('click', () => {
+    penOption = 'white'
+    eraserBtn.classList.add('buttonClicked')
+    blackBtn.classList.remove('buttonClicked')
+    rgbBtn.classList.remove('buttonClicked')
+})
+rgbBtn.addEventListener('click', () => {
+    penOption = 'rgb'
+    rgbBtn.classList.add('buttonClicked')
+    eraserBtn.classList.remove('buttonClicked')
+    blackBtn.classList.remove('buttonClicked')
+})
 
 function getRandomNumber() {
     return Math.floor(Math.random() * 256)
@@ -31,6 +46,7 @@ function getRandomRGB() {
 
 function getDimensions() {
     let dimension = window.prompt("How much by how much **Can't be over 100**")
+
     if (dimension > 100) getDimensions()
     else{
         clearContainer()
