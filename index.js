@@ -1,14 +1,33 @@
 const container = document.querySelector('.container')
 const dimensionBtn = document.querySelector('.dimension-btn')
+const blackBtn = document.querySelector('.black')
+const rgbBtn = document.querySelector('.rgb')
+const eraserBtn = document.querySelector('.eraser')
+const clearBtn = document.querySelector('.clear')
 
 dimensionBtn.addEventListener('click', getDimensions)
 
+let penOption = 'black'
+
+blackBtn.addEventListener('click', () => penOption = 'black')
+eraserBtn.addEventListener('click', () => penOption = 'white')
+rgbBtn.addEventListener('click', () => penOption = 'rgb')
+
+
+function getRandomNumber() {
+    return Math.floor(Math.random() * 256)
+}
+
+function getRandomRGB() {
+    let r = getRandomNumber()
+    let g = getRandomNumber()
+    let b = getRandomNumber()
+    return `rgb(${r}, ${g}, ${b})`
+}
 
 function getDimensions() {
     let dimension = window.prompt("How much by how much **Can't be over 100**")
-    if (dimension > 100){ 
-        getDimensions()
-    }
+    if (dimension > 100) getDimensions()
     else{
         clearContainer()
         let dimensions = dimension;
@@ -24,16 +43,13 @@ function setGrid(boxNumber, boxWidth) {
         element.style.width = `${boxWidth}px`
         element.style.height = `${boxWidth}px`
         element.classList.add('square')
-        element.addEventListener('mouseover', () => element.style.backgroundColor = 'black')
+        element.addEventListener('mouseover', () => {
+            if (penOption === 'rgb') element.style.backgroundColor = `${getRandomRGB()}`
+            else element.style.backgroundColor = `${penOption}`
+        })
         container.appendChild(element)
     }
 }
-
-clearBtn.addEventListener('click', () => {
-    container.forEach((item) => {
-        item.style.backgroundColor = 'white'
-    })
-})
 
 
 function clearContainer() {
